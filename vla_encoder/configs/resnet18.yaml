@@ -1,0 +1,50 @@
+experiment_name: vla_resnet18_ablation
+vision_encoder: resnet18
+data_fraction: 1.0
+seed: 42
+
+# Model architecture
+d_model: 768
+n_layers: 6
+n_heads: 12
+d_ff: 3072
+dropout: 0.1
+action_dim: 7
+action_horizon: 8
+image_size: 224
+
+# Vision encoder settings (ResNet-18: trainable, ImageNet pretrained, 25M params)
+freeze_vision_encoder: false
+vision_pretrained: true
+
+# Training
+batch_size: 32
+num_workers: 4
+max_epochs: 100
+learning_rate: 0.0001
+weight_decay: 0.01
+grad_clip_norm: 1.0
+early_stopping_patience: 10
+
+# Data
+data_dir: ./data/bridge_v2
+max_trajectories: 10000
+train_fraction: 0.8
+val_fraction: 0.1
+
+# Loss weights
+continuous_loss_weight: 1.0
+gripper_loss_weight: 0.5
+use_huber_loss: false
+
+# Evaluation
+num_eval_episodes: 100
+max_episode_length: 200
+success_threshold: 0.05
+
+# Paths
+checkpoint_dir: ./experiments/checkpoints/resnet18
+log_dir: ./experiments/logs/resnet18
+
+# Device
+device: cuda
